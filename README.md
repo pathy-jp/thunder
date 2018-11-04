@@ -1,0 +1,2 @@
+# thunder
+Learning programming language
