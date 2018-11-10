@@ -3,6 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
+
+  <style>
+
+      :root {
+        --spacing: 10px;
+        --base: #ffc600;
+        --blur: 10px;
+      }
+      /*
+        misc styles, nothing to do with CSS variables
+      */
+  
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: 'helvetica neue', sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
+  
+      .controls {
+        margin-bottom: 50px;
+      }
+  
+      input {
+        width: 100px;
+      }
+
+      img {
+        width: 45%;
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+
+      h2 > span {
+        color: var(--base);
+      }
+    </style>
 </head>
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
@@ -20,31 +60,22 @@
 
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
-  <style>
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
-
-    body {
-      text-align: center;
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
-
-    .controls {
-      margin-bottom: 50px;
-    }
-
-    input {
-      width: 100px;
-    }
-  </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUdpate() {
+
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+         
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUdpate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUdpate));
+
+
   </script>
 
 </body>
